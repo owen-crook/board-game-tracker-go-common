@@ -2,6 +2,17 @@ package documents
 
 import "time"
 
+// ScorecardDocumentRaw is the base structure for a scorecard document without any db related metadata
+type ScorecardDocumentRaw struct {
+	ImageUploadMetadataID string            `firestore:"image_upload_metadata_id" json:"image_upload_metadata_id"`
+	Game                  string            `firestore:"game" json:"game"`
+	Date                  time.Time         `firestore:"date" json:"date"`
+	IsCompleted           bool              `firestore:"is_completed" json:"is_completed"`
+	Location              *string           `firestore:"location" json:"location,omitempty"`
+	PlayerScores          *[]map[string]any `firestore:"player_scores" json:"player_scores,omitempty"`
+}
+
+// ScorecardDocumentCreate is for generating a new scorecard document in the DB
 type ScorecardDocumentCreate struct {
 	ID                    string            `firestore:"id" json:"id"`
 	ImageUploadMetadataID string            `firestore:"image_upload_metadata_id" json:"image_upload_metadata_id"`
@@ -14,6 +25,7 @@ type ScorecardDocumentCreate struct {
 	CreatedAt             time.Time         `firestore:"created_at" json:"created_at"`
 }
 
+// ScorecardDocumentUpdate is for updating an existing scorecard document in the DB
 type ScorecardDocumentUpdate struct {
 	ID           string            `firestore:"id" json:"id"`
 	Game         *string           `firestore:"game,omitempty" json:"game,omitempty"`
